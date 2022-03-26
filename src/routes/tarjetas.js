@@ -303,5 +303,11 @@ if ( [type] == "INTERNACIONAL") {
 
 	});
 
+router.get('/getuseragent/', (req, res) =>{
+
+	res.send('Este mensaje es de prueba');
+
+});
+
 module.exports = router; 
 
