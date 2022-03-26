@@ -1,0 +1,28 @@
+{
+  "name": "Ciber1_Gestion_Gastos_Api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aes-cbc": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "cryptography": "^1.2.3",
+    "express": "^4.17.2",
+    "math": "^0.0.3",
+    "Math": "^0.0.1-security",
+    "mysql": "^2.18.1",
+    "ncrypt": "^1.0.7",
+    "ncrypt-js": "^2.0.0",
+    "node-rsa": "^1.1.1",
+    "random": "^3.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
