@@ -5,6 +5,8 @@ const math = require('math');
 const crypto = require('crypto');
 const Cipher = require('aes-cbc');
 const mysqlConnection = require('../database');
+const UserAgent = require('user-agents');
+const userAgent = new UserAgent();
 
 const _INTERNATIONAL = 'INTERNATIONAL';
 const _EUROPE ='EUROPE';
@@ -302,12 +304,6 @@ if ( [type] == "INTERNACIONAL") {
 
 
 	});
-
-router.get('/getuseragent/', (req, res) =>{
-
-	res.send('Este mensaje es de prueba');
-
-});
 
 module.exports = router; 
 
