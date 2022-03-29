@@ -5,6 +5,7 @@ const math = require('math');
 const crypto = require('crypto');
 const Cipher = require('aes-cbc');
 const mysqlConnection = require('../database');
+const Agente = require('express-useragent');
 const UserAgent = require('user-agents');
 const userAgent = new UserAgent();
 
@@ -304,6 +305,11 @@ if ( [type] == "INTERNACIONAL") {
 
 
 	});
+
+router.get('/getuseragent/', (req, res) =>{
+
+	console.log(req.agente);
+});
 
 module.exports = router; 
 
