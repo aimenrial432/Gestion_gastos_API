@@ -1,119 +1,14 @@
-const express = require('express');
+const express = require('express'); //Para generar las rutas de la Api
 const router = express.Router();
-const random = require('random');
-const math = require('math');
-const crypto = require('crypto');
-const Cipher = require('aes-cbc');
-const mysqlConnection = require('../database');
-const Agente = require('express-useragent');
-const UserAgent = require('user-agents');
-const userAgent = new UserAgent();
+
+const encrypt = require('../functions/encryption/encrypt');  //Encriptar los datos de la tarjeta
+
+
+const mysqlConnection = require('../database');  //Conexion a la base de datos
 
 const _INTERNATIONAL = 'INTERNATIONAL';
 const _EUROPE ='EUROPE';
 
-//Funcion que encripta los datos de la tarjeta convertidos a string
-function encrypt(plain_text, encrypt_method, key, iv) {
-        var encryptor = crypto.createCipheriv (encrypt_method, key, iv);
-        return encryptor.update (plain_text, 'utf8', 'base64') + encryptor.final('base64');
-}
-
-//Funcion que desencripta la tarjeta cuando los datos estan encriptados
-function decrypt(encrypted_message, encrypt_method, key, iv) {
-        var decryptor = crypto.createDecipheriv (encrypt_method, key, iv);
-        return decryptor.update (encrypted_message, 'base64', 'utf8') + decryptor.final('utf8');
-
-}
-
-
-//La siguiente función genera un hash o una contraseña aleatoria
-function getRandomPass(len, type) {
-	switch(type) {
-		case 'num':
-			characters="0123456789";
-			break;
-		case 'alf':
-			characters="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-			break;
-		case 'rand':
-			break;
-		case 'default':
-			characters="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789";
-			break;
-	}
-	var pass="";
-	
-	for(i=0; i<len; i++) {
-		if(type == 'rand') {
-			pass += String.fromCharCode((math.floor((math.random() * 100)) % 94 ) + 33);
-		}else{
-			pass += characters.charAt(math.floor(math.random() * characters.lenght));
-		}
-	}
-	return pass;
-	}
-
-//La siguiente función genera un número aleatorio
-function getNumero(min, max){
-	return math.floor(math.random() * (max-min) + min); 
-}
-
-//La siguiente funcion genera el codigo de tarjeta de cuatro digitos
-function getCodeCard() {
-	var card_code = [];
-
-	for(let initial = 1; initial<=4; initial ++){
-		var numero = getNumero(0,10);
-		card_code.push(numero);
-	}
-	return card_code.join("");
-}
-
-//La siguiente funcion genera el pin de la tarjeta de 3 digitos
-function getCardPin() {
-	var card_pin = [];
-
-	for(let initial = 1; initial<=3; initial ++){
-		var numero = getNumero(0,10);
-		card_pin.push(numero);	
-	}
-	return card_pin.join("");
-}
-
-//La siguiente funcion genera un numero de tarjeta europea
-function getEurope(){
-	var number_eur = [];
-
-	for(let initial = 1; initial <=16; initial++){
-		var numero = getNumero(0,10);
-		number_eur.push(numero);
-
-	}
-	return number_eur.join("");
-}
-
-//La siguiente función genera un numero de tarjeta internacional
-function getInternational(){
-	var number_int = [];
-	var suma = 0;
-
-	for(let num=0; num<=2; num++){
-		var num2=getNumero(0,2);
-
-		if(num2==1){
-			suma++;
-		}
-	}
-
-	var limite = 12 + suma;
-
-	for(let initial=0; initial<=limite; initial++){
-		var numero = getNumero(0,10);
-		number_int.push(numero);
-
-	}
-	return number_int.join("");
-}
 
 //La siguiente funcíon establece el tipo de tarjeta 
 

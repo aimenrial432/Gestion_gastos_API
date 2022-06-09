@@ -11,7 +11,6 @@ app.use(express.json());
 //Routes
 app.use(require('./routes/employees'));
 app.use(require('./routes/tarjetas'));
-//app.use(require('./routes/tarjetas'));
 
 //Starting
 
