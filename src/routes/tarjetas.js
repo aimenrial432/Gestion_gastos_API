@@ -124,7 +124,7 @@ router.get('/infocard/:id/:type' , (req, res) => {
 
 				} else {
 
-					consolo.log(err);
+					console.log(err);
 				}
 			
 				});
